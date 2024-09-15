@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="YoutubeFetcher.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:YoutubeFetcher"
+    Shell.FlyoutBehavior="Disabled"
+    Title="YoutubeFetcher">
+
+    <TabBar>
+        <Tab Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Title="Channels">
+            <ShellContent ContentTemplate="{DataTemplate local:ManageChannels}" />
+        </Tab>
+    </TabBar>
+
+
+
+</Shell>
