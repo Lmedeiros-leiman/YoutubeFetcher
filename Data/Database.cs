@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Google.Apis.YouTube.v3.Data;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace YoutubeFetcher.Data {
 
             // creates the tables for our objects.
             //
+
             dbContext.CreateTable<YoutubeChannel>();
             dbContext.CreateTable<YoutubeVideo>();
 

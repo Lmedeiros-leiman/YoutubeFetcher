@@ -10,7 +10,7 @@ public class YoutubeChannel {
     [PrimaryKey]
     [AutoIncrement]
     [Column("id")]
-    public string RowId {get; set;} = string.Empty;
+    public int RowId {get; set;}
 
     [Column("ChannelId")]
     public string ChannelId {get; set;} = string.Empty;
@@ -20,8 +20,8 @@ public class YoutubeChannel {
     [Column("description")]
     public  string Description {get; set;} = string.Empty;
     
-    [Column("thumbnails")]
-    public  ThumbnailDetails Thumbnails {get; set;} = new ThumbnailDetails() {};
+    [Column("thumbnailUrl")]
+    public string Thumbnail {get; set;} = string.Empty;
     
     //
     //
@@ -32,7 +32,4 @@ public class YoutubeChannel {
     //
     [Column("creationDate")]
     public  string PublishedAt {get; set;} = string.Empty;
-    [Column("creationDateOffset")]
-    public  DateTimeOffset? PublishedAtOffset {get; set;}
-    
 }
