@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YoutubeFetcher.Resources.Models;
 
 namespace YoutubeFetcher.Resources.Services {
     public class YoutubeApiService(string API_KEY, string applicationName) {
@@ -17,7 +16,7 @@ namespace YoutubeFetcher.Resources.Services {
 
         public SearchListResponse FetchChannelsByName(string channelName, int ammount = 20) {
             Trace.WriteLine($"Fetching youtube channels by {channelName}...");
-            
+
             var searchRequest = youtubeApiObject.Search.List("snippet");
             searchRequest.Q = channelName;
             searchRequest.Type = "channel";
@@ -26,7 +25,7 @@ namespace YoutubeFetcher.Resources.Services {
             Trace.WriteLine($"Chanels found by {channelName}.");
             return searchRequest.Execute();
         }
-        public List<YoutubeVideo> FetchChannelVideos(string chanelId, int maxAmmount = 20) {
+        public SearchListResponse FetchChannelVideos(string chanelId, int maxAmmount = 20) {
             Trace.WriteLine($"Fetching chanel id {chanelId} uploaded videos...");
 
             var searchRequest = youtubeApiObject.Search.List("snippet");
@@ -35,20 +34,8 @@ namespace YoutubeFetcher.Resources.Services {
             searchRequest.MaxResults = maxAmmount;
 
             Trace.WriteLine($"Found chanel id {chanelId} uploaded videos.");
-            var channelVideos = searchRequest.Execute();
-
-            List<YoutubeVideo> resultVideos = new();
-            foreach(var video in channelVideos.Items) {
-                var visualData = new YoutubeVideo() { videoData = video };
-                resultVideos.Add(visualData);
-            }
-
-            return resultVideos;
-
+            return searchRequest.Execute();
         }
-            
-
-
     }
 }
 
