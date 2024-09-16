@@ -3,10 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="YoutubeFetcher.ManageChannels">
     <VerticalStackLayout>
-        <Label 
+        <FlexLayout JustifyContent="Center"
+                    Margin="8">
+            <Entry x:Name="InputChannelName"
+                   WidthRequest="360"
+                   Margin="0,0,4,0"
+                   Placeholder="Youtube Channel name"
+                   TextChanged="EnableSubmitButton"/>
+            <Button x:Name="SubmitButton"
+                    IsEnabled="False"
+                    Text="Search"
+                    Clicked="FetchYoutubeChannelVideos"/>
+        </FlexLayout>
+
+
+
+        <CollectionView x:Name="SavedChannelsCollection"
+                        Margin="8,10,8,10"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="4"
+                           Margin="4"
+                           BorderColor="Gray"
+                           CornerRadius="8">
+                        <FlexLayout Margin="10,10,10,10"
+                                    JustifyContent="SpaceBetween">
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="{Binding videoData.Snippet.Thumbnails.Default__.Url}"
+                                       WidthRequest="128"/>
+                                <StackLayout Margin="8,0,0,0">
+                                    <Label Text="{Binding videoData.Snippet.Title}"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"/>
+                                    <Label Text="{Binding videoData.Snippet.PublishedAt}"
+                                           FontSize="Small"/>
+                                </StackLayout>
+                            </StackLayout>
+
+
+
+                            <Button Text="Download"
+                                    IsEnabled="{Binding }"
+                                    HeightRequest="0"/>
+                        </FlexLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        <Label
             Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+
     </VerticalStackLayout>
 </ContentPage>
