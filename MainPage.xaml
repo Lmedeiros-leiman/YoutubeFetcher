@@ -1,19 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YoutubeFetcher.MainPage">
+             x:Class="YoutubeFetcher.MainPage"
+             Appearing="UpdateMainPage">
 
 
 
 
     <ScrollView>
+        <VerticalStackLayout>
+            <FlexLayout JustifyContent="Center">
+                <Button x:Name="FetchChannelButton"
+                        Clicked="FetchChannelVideos"
+                        IsEnabled="False"
+                        Text="Select a channel to fetch videos."></Button>
+            </FlexLayout>
 
+            <CollectionView x:Name="SavedChannelsCollection"
+                            SelectionMode="Single"
+                    Margin="4">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="3"
+                            Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            Background="Transparent"
+                            BorderColor="WhiteSmoke"
+                            CornerRadius="4">
+                            <FlexLayout
+                                JustifyContent="SpaceBetween">
+                                <StackLayout Orientation="Horizontal" Spacing="4">
+                                    <Image Source="{Binding  Thumbnail}"
+                                           WidthRequest="128"/>
+                                    <StackLayout Margin="8,0,0,0">
+                                        <Label Text="{Binding Title}"
+                                               FontAttributes="Bold"
+                                               FontSize="Small"/>
+                                        <Label Text="{Binding Description }"
+                                               FontSize="Micro"
+                                                MaximumWidthRequest="320"/>
+                                        <Label Text="{Binding ReleaseDate}" FontSize="Micro" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Button Text="View Videos"
+                                            HeightRequest="0"/>
+                                </StackLayout>
 
-
-
-
-
-
+                            </FlexLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>

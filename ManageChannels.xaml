@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YoutubeFetcher.ManageChannels">
+             x:Class="YoutubeFetcher.ManageChannels" >
+    <ScrollView>
     <VerticalStackLayout>
         <FlexLayout JustifyContent="Center"
                     Margin="8">
@@ -17,35 +18,35 @@
         </FlexLayout>
 
 
-
-        <CollectionView x:Name="SavedChannelsCollection"
-                        Margin="8,10,8,10"
-                        SelectionMode="None">
+        <CollectionView x:Name="SavedChannelsCollection" SelectionChanged="SelectedChannel"
+                        SelectionMode="Single" Margin="4">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="4"
-                           Margin="4"
-                           BorderColor="Gray"
-                           CornerRadius="8">
-                        <FlexLayout Margin="10,10,10,10"
+                <DataTemplate> 
+                    <Frame 
+                           Background="Transparent"
+                           BorderColor="WhiteSmoke"
+                           CornerRadius="4">
+                        <FlexLayout
                                     JustifyContent="SpaceBetween">
                             <StackLayout Orientation="Horizontal">
-                                <Image Source="{Binding videoData.Snippet.Thumbnails.Default__.Url}"
+                                <Image Source="{Binding  Thumbnail}"
                                        WidthRequest="128"/>
                                 <StackLayout Margin="8,0,0,0">
-                                    <Label Text="{Binding videoData.Snippet.Title}"
+                                    <Label Text="{Binding ChannelTitle}"
                                            FontAttributes="Bold"
                                            FontSize="Medium"/>
-                                    <Label Text="{Binding videoData.Snippet.PublishedAt}"
-                                           FontSize="Small"/>
+                                    <Label Text="{Binding Description }"
+                                           FontSize="Micro" MaximumWidthRequest="320"/>
                                 </StackLayout>
                             </StackLayout>
-
-
-
-                            <Button Text="Download"
-                                    IsEnabled="{Binding }"
+                        <StackLayout Orientation="Horizontal">
+                            <Button Text="View Videos"
                                     HeightRequest="0"/>
+                        </StackLayout>
+                            
                         </FlexLayout>
                     </Frame>
                 </DataTemplate>
@@ -53,10 +54,7 @@
         </CollectionView>
 
 
-        <Label
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"/>
-
+        
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -53,22 +53,26 @@ public partial class ManageChannels : ContentPage {
 
 		Trace.WriteLine("Showing channel found.");
 		var selectedChannel = channelList.Items[0].Snippet;
-		bool answer = await DisplayAlert($"{selectedChannel.ChannelTitle} | {selectedChannel.ChannelId}", $"{selectedChannel.Description}", "Confirm", "Cancel");
+		if (dbcontext.GetYoutubeChannelById(selectedChannel.ChannelId) != null) {
 
+			await DisplayAlert($"Channel already on the list.", $"The channel {selectedChannel.Title} is already on the list", "Confirm");
+			channelNameBox.IsReadOnly = false;
+			return;
+		}
+
+		bool answer = await DisplayAlert($"{selectedChannel.ChannelTitle} | {selectedChannel.ChannelId}", $"{selectedChannel.Description}", "Confirm", "Cancel");
 		if (answer) {
 			// saves the channel into the database
 			YoutubeChannel channel = new() {
 				ChannelId = selectedChannel.ChannelId,
-				ChannelTitle = selectedChannel.Title,
+				ChannelTitle = selectedChannel.ChannelTitle,
 				Description = selectedChannel.Description,
 				PublishedAt = selectedChannel.PublishedAtRaw,
-				PublishedAtOffset = selectedChannel.PublishedAtDateTimeOffset,
-				Thumbnails = selectedChannel.Thumbnails
-
+				Thumbnail = selectedChannel.Thumbnails.Default__.Url,
 			};
 			dbcontext.SaveYoutubeChannel(channel);
 			savedYoutubeChannels.Add(channel);
-
+			channelCollection.ItemsSource = savedYoutubeChannels;
 
 		} else {
 			// cancels everything
@@ -84,8 +88,13 @@ public partial class ManageChannels : ContentPage {
 
 		fetchButton.IsEnabled = !string.IsNullOrEmpty(entry?.Text.Trim());
 		//fetchButton.IsEnabled = selectedChannel != null ? false : true;
-
-
 	}
+
+    private void SelectedChannel(object sender, SelectionChangedEventArgs e) {
+		Trace.WriteLine("Changing selected channel.");
+		MainPage.selectedChannel = e.CurrentSelection[0];
+	}
+
+    
 
 }
